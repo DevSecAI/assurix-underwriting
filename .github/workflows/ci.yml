@@ -1,0 +1,19 @@
+# ASR-CI-002: no permissions block.
+name: ci
+on:
+  push: { branches: [main] }
+  pull_request: { branches: [main] }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # ASR-CI-001: full Azure credentials JSON inline.
+      AZURE_CREDENTIALS: '{"clientId":"6b3c7b1e-22aa-4b8b-8a6f-deadbeefcafe","clientSecret":"~Az9.9u2EXAMPLE","subscriptionId":"00000000-0000-0000-0000-000000000000","tenantId":"72f988bf-86f1-41af-91ab-2d7cd011db47"}'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: 8.0.x }
+      # ASR-CI-003: NuGet feed served over plain HTTP.
+      - run: dotnet nuget add source http://nuget.assurix.internal/v3/index.json -n internal
+      - run: dotnet restore
+      - run: dotnet test --no-restore

@@ -1,0 +1,34 @@
+benchmark_id: assurix-underwriting
+corpus_version: "0.1.0"
+industry: insurance
+sub_industry: underwriting
+frameworks: [SOC-2, NAIC-Model-Law]
+
+findings:
+  sast:
+    - { id: ASR-SAST-001, cwe: CWE-89,   severity: high,     file: src/Controllers/PoliciesController.cs }
+    - { id: ASR-SAST-002, cwe: CWE-502,  severity: critical, file: src/Controllers/AdminController.cs }
+    - { id: ASR-SAST-003, cwe: CWE-611,  severity: high,     file: src/Services/QuoteImporter.cs }
+    - { id: ASR-SAST-004, cwe: CWE-798,  severity: critical, file: src/appsettings.json }
+    - { id: ASR-SAST-005, cwe: CWE-352,  severity: high,     file: src/Program.cs }
+    - { id: ASR-SAST-006, cwe: CWE-22,   severity: high,     file: src/Controllers/DocsController.cs }
+    - { id: ASR-SAST-007, cwe: CWE-918,  severity: high,     file: src/Services/Webhook.cs }
+    - { id: ASR-SAST-008, cwe: CWE-327,  severity: medium,   file: src/Services/Crypto.cs }
+    - { id: ASR-SAST-009, cwe: CWE-209,  severity: low,      file: src/Middleware/Errors.cs }
+    - { id: ASR-SAST-010, cwe: CWE-1004, severity: medium,   file: src/Program.cs }
+  iac:
+    - { id: ASR-IAC-001, class: storage-public,    file: infra/terraform/storage.tf }
+    - { id: ASR-IAC-002, class: sql-public,        file: infra/terraform/sql.tf }
+    - { id: ASR-IAC-003, class: sql-no-aad-admin,  file: infra/terraform/sql.tf }
+    - { id: ASR-IAC-004, class: nsg-open-sql,      file: infra/terraform/network.tf }
+    - { id: ASR-IAC-005, class: container-root,    file: Dockerfile }
+    - { id: ASR-IAC-006, class: k8s-no-hardening,  file: infra/k8s/deployment.yaml }
+  sca:
+    - { id: ASR-SCA-001, package: Newtonsoft.Json,                              version: "12.0.3", advisory: "CVE-2024-21907" }
+    - { id: ASR-SCA-002, package: System.Data.SqlClient,                        version: "4.6.0",  advisory: "CVE-2022-41064" }
+    - { id: ASR-SCA-003, package: Microsoft.AspNetCore.Mvc.NewtonsoftJson,      version: "5.0.0",  advisory: "transitive" }
+    - { id: ASR-SCA-004, package: log4net,                                      version: "2.0.8",  advisory: "CVE-2018-1285" }
+  pipeline:
+    - { id: ASR-CI-001, class: hardcoded-cloud-cred,    file: .github/workflows/ci.yml }
+    - { id: ASR-CI-002, class: missing-permissions,     file: .github/workflows/ci.yml }
+    - { id: ASR-CI-003, class: insecure-nuget-feed,     file: .github/workflows/ci.yml }

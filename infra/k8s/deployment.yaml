@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: assurix }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: assurix } }
+  template:
+    metadata: { labels: { app: assurix } }
+    spec:
+      containers:
+        - name: app
+          image: assurix/api:latest
+          # ASR-IAC-006: no resources limits, no readOnlyRootFilesystem, runs as root.
