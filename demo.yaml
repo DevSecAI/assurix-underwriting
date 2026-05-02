@@ -1,4 +1,4 @@
-benchmark_id: assurix-underwriting
+demo_id: assurix-underwriting
 corpus_version: "0.1.0"
 industry: insurance
 sub_industry: underwriting
