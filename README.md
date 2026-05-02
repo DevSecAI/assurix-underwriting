@@ -2,7 +2,7 @@
 
 > ⚠️ **ARKO Demo Application — contains intentional vulnerabilities. Do not deploy.**
 
-Personal-lines underwriting decision API for a (fictional) general insurer. Part of the [ARKO Coverage Demos](https://github.com/DevSecAI/arko-benchmarks) suite.
+Personal-lines underwriting decision API for a (fictional) general insurer. Part of the [ARKO Coverage Demos](https://github.com/DevSecAI/arko-demos) suite.
 
 Stack: .NET 8 · ASP.NET · SQL Server · Azure (Terraform) · Kubernetes.
 
